@@ -3,6 +3,7 @@ package play.data.binding;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.*;
 import java.util.*;
+import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -145,6 +146,8 @@ public class BeanWrapper {
 
     public static class Property {
 
+        private static final Pattern WHITESPACE = Pattern.compile("\\s+");
+
         private Annotation[] annotations;
         private Method setter;
         private Field field;
@@ -209,7 +212,7 @@ public class BeanWrapper {
                 }
 
                 if (stripping.squish()) {
-                    mod = mod.replaceAll("\\s+", " ");
+                    mod = WHITESPACE.matcher(mod).replaceAll(" ");
                 }
 
                 if (stripping.nullify()) {
