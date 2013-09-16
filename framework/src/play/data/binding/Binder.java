@@ -320,9 +320,11 @@ public abstract class Binder {
                 BindingAnnotations propBindingAnnotations = new BindingAnnotations(annotations, bindingAnnotations.getProfiles());
 
                 String[] values = propParamNode.getValues();
-                for (int i = 0; i < values.length; i++) {
-                    String value = values[i];
-                    values[i] = (String) prop.strip(bean, value);
+                if (values != null) {
+                    for (int i = 0; i < values.length; i++) {
+                        String value = values[i];
+                        values[i] = prop.strip(bean, value);
+                    }
                 }
 
                 Object value = internalBind(propParamNode, prop.getType(), prop.getGenericType(), propBindingAnnotations);
